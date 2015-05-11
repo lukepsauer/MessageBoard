@@ -1,0 +1,13 @@
+<form method="post" action="/user/<%= @u.id %>/update" class="form-inline">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" name="name" value="<%= @u.name %>" class="form-control">
+  </div>
+  <div class="form-group">
+    <label for="phone">Phone</label>
+    <input type="text" name="phone" value="<%= @u.phone %>" class="form-control">
+  </div>
+  <div class="form-group">
+    <input type="submit" value="Update User" class="form-control btn-primary">
+  </div>
+</form>

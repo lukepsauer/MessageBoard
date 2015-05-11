@@ -1,0 +1,51 @@
+<h1 class="text-center"><%= @post.title %></h1>
+<table class="table table-striped">
+  <tr>
+    <th class="first-cell">
+      Title
+    </th>
+    <th>
+      Message &nbsp&nbsp&nbsp
+    </th>
+    <th>
+      Author &nbsp&nbsp&nbsp
+    </th>
+    <th>
+      Date &nbsp&nbsp&nbsp
+    </th>
+  </tr>
+  <% @discs.each do |disc| %>
+      <tr>
+        <th>
+          <%= disc.title %>
+        </th>
+        <th>
+           <%= disc.message %>
+        </th>
+        <th>
+          <%= User.first(:id => disc.author_id).username %>
+        </th>
+        <th>
+          <%= disc.date.strftime('%b %d, %Y')%>
+        </th>
+      </tr>
+  <% end %>
+</table>
+<form class="form-horizontal" action="/disc/new/<%= @post.id %>" method="post">
+  <div class="form-group  text-center ">
+    <div class="text-center">
+      <input type="text" class="form-control " name="title" placeholder="Title">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="text-center">
+      <textarea type="text" class="form-control " name="message" placeholder="Message..." rows="3"></textarea>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="text-center">
+      <button class="btn btn-primary btn-block text-center" type="submit">Submit New Message <i class="fa fa-lg fa-pencil-square-o"></i></button>
+    </div>
+  </div>
+</form>

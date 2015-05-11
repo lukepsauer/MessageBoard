@@ -1,0 +1,25 @@
+<h1 class="text-center">Users</h1>
+<table class="table table-striped">
+  <tr>
+    <th class="first-cell">
+      Name
+    </th>
+    <th>
+      Number of Threads &nbsp&nbsp&nbsp
+    </th>
+    <th>
+      Number of Messages &nbsp&nbsp&nbsp
+    </th>
+  </tr>
+  <% @users.each do |user| %>
+      <tr>
+        <th class="first-cell"><%= user.username %>  <a class="black-icon" href="/user/view/<%= user.username %>"><i class="fa fa-search"></i></a> </th>
+        <th>
+          <%= Post.where(:user_id => user.id).count %>
+        </th>
+        <th>
+          <%= Disc.where(:author_id => user.id).count %>
+        </th>
+      </tr>
+  <% end %>
+</table>

@@ -1,0 +1,26 @@
+<h1 class="text-center">Threads by <%= @user.username %></h1>
+
+<table class="table table-striped">
+  <tr>
+    <th class="first-cell">
+      View
+    </th>
+    <th>
+      Thread &nbsp&nbsp&nbsp
+    </th>
+    <th>
+      Date &nbsp&nbsp&nbsp
+    </th>
+  </tr>
+  <% @posts.each do |post| %>
+      <tr>
+        <th class="first-cell">  <a class="black-icon" href="/post/view/<%= post.title %>"><i class="fa fa-search"></i></a></th>
+        <th>
+          <%= post.title %> <small><em><%= post.description %></em></small>
+        </th>
+        <th>
+          <%= post.date.strftime('%b %d, %Y')%>
+        </th>
+      </tr>
+  <% end %>
+</table>

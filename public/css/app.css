@@ -1,0 +1,15 @@
+body {
+    padding-top: 60px;
+}
+
+hr {
+    border-color: darkgray !important;
+}
+
+.first-cell {
+    padding-right: 10px;
+}
+
+.black-icon {
+    color: rgb(45, 49, 52);
+}
