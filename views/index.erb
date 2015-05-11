@@ -1,10 +1,10 @@
 <h1 class="text-center">Threads</h1>
 <table class="table table-striped">
   <tr>
-    <th class="first-cell">
+    <th >
       View
     </th>
-    <th>
+    <th class="first-cell">
       Thread Name &nbsp&nbsp&nbsp
     </th>
     <th>
@@ -16,8 +16,8 @@
   </tr>
   <% @posts.each do |post| %>
   <tr>
-    <th class="first-cell">  <a class="black-icon" href="/post/view/<%= post.title %>"><i class="fa fa-search"></i></a></th>
-    <th>
+    <th >  <a class="black-icon" href="/post/view/<%= post.title %>"><i class="fa fa-search"></i></a></th>
+    <th class="first-cell">
       <%= post.title %> <small><em><%= post.description %></em></small>
     </th>
     <th>

@@ -34,7 +34,7 @@ post '/user/create' do
   u.save
   u = User.first(:username => params[:username])
   session['id'] = u.id
-  redirect '/'
+  redirect "/welcome/#{u.username}"
   else
     redirect '/user/signup'
   end
@@ -53,10 +53,15 @@ post '/user/authenticate' do
   u = User.first(:username => params[:username])
   if BCrypt::Password.new(u.password.to_s) == params[:password]
       session['id'] = u.id
-    redirect "/"
+      redirect "/welcome/#{u.username}"
   else
     redirect '/user/login'
   end
+end
+
+get '/welcome/:name' do
+  @name = params[:name]
+  erb :welcome
 end
 
 get '/user/signout' do
@@ -94,4 +99,9 @@ get '/user/view/:name' do
   @user = User.first(:username => params[:name].to_s)
   @posts = Post.where(:user_id => @user.id)
   erb :userview
+end
+
+post '/user/search' do
+  login?
+  redirect "/user/view/#{params[:user]}"
 end

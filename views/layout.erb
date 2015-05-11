@@ -29,19 +29,37 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="">Message Board</a>
+      <a class="navbar-brand disabled" href="">Message Board</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li class=""><a href="/users">Users</a></li>
-        <li><a href="/">Posts</a></li>
+        <li><a href="/">Threads</a></li>
+        <form class="navbar-form navbar-left" method="post" action="/user/search">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="User" name="user">
+          </div>
+          <button type="submit" class="btn btn-primary"><i class="fa fa-lg fa-search"></i></button>
+        </form>
       </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="/user/signout">Sign Out</a></li>
+      <% if session['id'] == nil %>
+
+     <ul class="nav navbar-nav navbar-right">
+        <li><a href="/user/login">Log In</a></li>
         <li class="nav navbar-text navbar-right">
       </ul>
+          <ul class="nav navbar-nav navbar-right">
+      <li><a href="/user/signup">Sign Up</a></li>
+      <li class="nav navbar-text navbar-right">
+    </ul>
+          <% else %>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/user/signout">Sign Out</a></li>
+            <li class="nav navbar-text navbar-right">
+          </ul>
+          <% end %>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
