@@ -7,6 +7,8 @@ Sequel.migration do
       String :description
       Array :disc
       Date :date
+      String :voted
+      Integer :likes
 
       foreign_key :user_id
     end

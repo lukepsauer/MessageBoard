@@ -11,15 +11,33 @@
     <th>
       Date &nbsp&nbsp&nbsp
     </th>
+    <th>
+        Amount of Messages
+    </th>
+    <th>
+      Likes
+    </th>
   </tr>
   <% @posts.each do |post| %>
       <tr>
-        <th class="first-cell">  <a class="black-icon" href="/post/view/<%= post.title %>"><i class="fa fa-search"></i></a></th>
+        <th class="first-cell">  <a class="black-icon" href="/post/view/<%= post.id %>"><i class="fa fa-search"></i></a></th>
         <th>
           <%= post.title %> <small><em><%= post.description %></em></small>
         </th>
         <th>
           <%= post.date.strftime('%b %d, %Y')%>
+        </th>
+        <th>
+          <%= Disc.where(:post_id => post.id).count%>
+        </th>
+        <th>
+
+          <% if post.voted.split(', ').include?(session["id"].to_s) == true %>
+              <a class="black-icon" href="/post/like/<%= post.id %>/1"><i class="fa fa-thumbs-up"></i></a>
+          <%else%>
+              <a class="black-icon" href="/post/like/<%= post.id %>/1"><i class="fa fa-thumbs-o-up"></i></a>
+          <%end%>
+           <%= post.likes %>
         </th>
       </tr>
   <% end %>

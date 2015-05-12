@@ -6,6 +6,8 @@ Sequel.migration do
       String :title
       String :message
       Date :date
+      String :voted
+      Integer :likes
       foreign_key :author_id
       foreign_key :post_id
     end

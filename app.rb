@@ -11,7 +11,7 @@ end
 # READ
 get '/' do
   login?
-  @posts = Post.all
+  @posts = Post.reverse_order(:likes)
   erb :index
 end
 
@@ -21,6 +21,8 @@ post '/post/new' do
   post.description = params[:desc]
   post.user_id = session['id']
   post.date = Date.today
+  post.voted = ", "
+  post.likes = 0
   post.save
   redirect '/'
 end
@@ -72,18 +74,78 @@ end
 get '/users' do
   login?
   @users = User.all
+  @likes =[]
+  @users.each_with_index do |user, i|
+    posts = Post.where(:user_id => user.id)
+    discs = Disc.where(:author_id => user.id)
+    likes = 0
+    posts.each do |post|
+      likes += post.likes
+    end
+    discs.each do |post|
+      likes += post.likes
+    end
+    @likes[i] = likes
+  end
   erb :users
 end
 
-get '/post/view/:name' do
+get '/post/view/:id' do
   login?
-  @post = Post.first(:title => params[:name])
-  @discs = Disc.where(:post_id => @post.id)
+  @post = Post.first(:id => params[:id])
+  @discs = Disc.where(:post_id => @post.id).reverse_order!(:likes)
+
   erb :postview
 end
 
+get '/disc/like/:id' do
+  d = Disc.first(:id => params[:id].to_i)
+  new  = d.voted.split(', ')
+  if new.include?(session["id"].to_s) == true
+    d.likes -= 1
+    new.delete(session["id"].to_s)
+    d.voted = new.join(", ")
+    d.save
+    redirect "/post/view/#{d.post_id}"
+  else
+    d.likes += 1
+    new.push(session["id"])
+    d.voted = new.join(", ")
+    d.save
+    redirect "/post/view/#{d.post_id}"
+  end
+end
+get '/post/like/:id/:user' do
+  d = Post.first(:id => params[:id])
+  new  = d.voted.split(', ')
+  if new.include?(session["id"].to_s) == true
+    d.likes -= 1
+    new.delete(session["id"].to_s)
+    d.voted = new.join(", ")
+    d.save
+    if params[:user].to_i == 2
+    redirect "/"
+    else
+      redirect "/user/view/#{d.user_id}"
+      end
+  else
+    d.likes += 1
+    new.push(session["id"])
+    d.voted = new.join(", ")
+    d.save
+    if params[:user].to_i == 2
+      redirect "/"
+    else
+      redirect "/user/view/#{d.user_id}"
+    end
+  end
+end
+
+
 post '/disc/new/:id' do
   disc = Disc.new
+  disc.voted = ""
+  disc.likes = 0
   disc.title = params[:title]
   disc.message = params[:message]
   disc.author_id = session['id']
@@ -91,17 +153,29 @@ post '/disc/new/:id' do
   disc.date = Date.today
   disc.save
   post = Post.first(:id => params[:id])
-  redirect "/post/view/#{post.title}"
+  redirect "/post/view/#{post.id}"
 end
 
 get '/user/view/:name' do
   login?
-  @user = User.first(:username => params[:name].to_s)
-  @posts = Post.where(:user_id => @user.id)
+  @user = User.first(:id => params[:name])
+  @posts = Post.where(:user_id => @user.id).reverse_order!(:likes)
+  @discs = Disc.where(:author_id => @user.id).reverse_order!(:likes)
+  @likes = 0
+  @posts.each do |post|
+    @likes += post.likes
+  end
+  @discs.each do |post|
+    @likes += post.likes
+  end
   erb :userview
 end
 
 post '/user/search' do
   login?
-  redirect "/user/view/#{params[:user]}"
+  if User.first(:username => params[:user]) != nil
+  redirect "/user/view/#{User.first(:username => params[:user]).id}"
+  else
+    redirect "/users"
+    end
 end

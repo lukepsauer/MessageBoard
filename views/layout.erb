@@ -4,9 +4,10 @@
 
   <!--CSS-->
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
-  <link href="//bootswatch.com/paper/bootstrap.min.css" rel="stylesheet">
+  <link href="//bootswatch.com/lumen/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="/css/app.css?<%= rand(100000) %>">
+  <link rel="shortcut icon" type="image/icon" href="/icon_chat.png">
 </head>
 <body>
 
@@ -20,7 +21,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <script src="/js/app.js?<%= rand(100000) %>"></script>
-<nav class="navbar navbar-fixed-top">
+<nav class="navbar  navbar-fixed-top">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -30,13 +31,13 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand disabled" href="">Message Board</a>
+      <a class="navbar-brand disabled" href=""><i class="fa fa-envelope"></i> Message Board</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class=""><a href="/users">Users</a></li>
+        <li class=""><a href="/users"><i class="fa fa-users"></i> Users</a></li>
         <li><a href="/">Threads</a></li>
         <form class="navbar-form navbar-left" method="post" action="/user/search">
           <div class="form-group">
@@ -48,7 +49,7 @@
       <% if session['id'] == nil %>
 
      <ul class="nav navbar-nav navbar-right">
-        <li><a href="/user/login">Log In</a></li>
+        <li><a href="/user/login">Log In <i class="fa fa-sign-in"></i></a></li>
         <li class="nav navbar-text navbar-right">
       </ul>
           <ul class="nav navbar-nav navbar-right">
@@ -57,7 +58,7 @@
     </ul>
           <% else %>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="/user/signout">Sign Out</a></li>
+            <li><a href="/user/signout">Sign Out <i class="fa fa-sign-out"></i></a></li>
             <li class="nav navbar-text navbar-right">
           </ul>
           <% end %>

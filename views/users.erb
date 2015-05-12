@@ -1,6 +1,9 @@
 <h1 class="text-center">Users</h1>
 <table class="table table-striped">
   <tr>
+    <th>
+      View
+    </th>
     <th class="first-cell">
       Name
     </th>
@@ -10,15 +13,24 @@
     <th>
       Number of Messages &nbsp&nbsp&nbsp
     </th>
+    <th>
+      Total Likes
+    </th>
   </tr>
-  <% @users.each do |user| %>
+  <% @users.each_with_index do |user, i| %>
       <tr>
-        <th class="first-cell"><%= user.username %>  <a class="black-icon" href="/user/view/<%= user.username %>"><i class="fa fa-search"></i></a> </th>
+        <th>
+          <a class="black-icon" href="/user/view/<%= user.id %>"><i class="fa fa-search"></i></a>
+        </th>
+        <th class="first-cell"><%= user.username %>  </th>
         <th>
           <%= Post.where(:user_id => user.id).count %>
         </th>
         <th>
           <%= Disc.where(:author_id => user.id).count %>
+        </th>
+        <th>
+        <%=@likes[i]%>
         </th>
       </tr>
   <% end %>

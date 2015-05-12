@@ -1,4 +1,6 @@
-<h1 class="text-center"><%= @post.title %></h1>
+<h1 class="text-center" ><%= @post.title %></h1>
+<h2 class="text-center" ><small><%= @post.description %></small></h2>
+<h3></h3>
 <table class="table table-striped">
   <tr>
     <th class="first-cell">
@@ -12,6 +14,9 @@
     </th>
     <th>
       Date &nbsp&nbsp&nbsp
+    </th>
+    <th>
+      Likes
     </th>
   </tr>
   <% @discs.each do |disc| %>
@@ -28,6 +33,15 @@
         <th>
           <%= disc.date.strftime('%b %d, %Y')%>
         </th>
+        <th>
+
+          <% if disc.voted.split(', ').include?(session["id"].to_s) == true %>
+              <a class="black-icon" href="/disc/like/<%= disc.id %>"><i class="fa fa-thumbs-up"></i></a>
+          <%else%>
+              <a class="black-icon" href="/disc/like/<%= disc.id %>"><i class="fa fa-thumbs-o-up"></i></a>
+          <%end%>
+          <%= disc.likes %>
+        </th>
       </tr>
   <% end %>
 </table>
@@ -39,7 +53,7 @@
   </div>
   <div class="form-group">
     <div class="text-center">
-      <textarea type="text" class="form-control " name="message" placeholder="Message..." rows="3"></textarea>
+      <textarea type="text" class="form-control " name="message" placeholder="Message..." rows="5"></textarea>
     </div>
   </div>
 
