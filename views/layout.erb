@@ -4,7 +4,7 @@
 
   <!--CSS-->
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
-  <link href="//bootswatch.com/lumen/bootstrap.min.css" rel="stylesheet">
+  <link href="//bootswatch.com/spacelab/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="/css/app.css?<%= rand(100000) %>">
   <link rel="shortcut icon" type="image/icon" href="/icon_chat.png">
@@ -31,14 +31,14 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand disabled" href=""><i class="fa fa-envelope"></i> Message Board</a>
+      <a class="navbar-brand disabled" ><i class="fa fa-comments-o"></i> </i> Message Board</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li class=""><a href="/users"><i class="fa fa-users"></i> Users</a></li>
-        <li><a href="/">Threads</a></li>
+        <li><a href="/"><i class="fa fa-envelope"></i> Threads</a></li>
         <form class="navbar-form navbar-left" method="post" action="/user/search">
           <div class="form-group">
             <input type="text" class="form-control" placeholder="User" name="user">
@@ -49,18 +49,23 @@
       <% if session['id'] == nil %>
 
      <ul class="nav navbar-nav navbar-right">
-        <li><a href="/user/login">Log In <i class="fa fa-sign-in"></i></a></li>
+        <li><a href="/user/login"><i class="fa fa-sign-in"></i> Log In </a></li>
         <li class="nav navbar-text navbar-right">
       </ul>
           <ul class="nav navbar-nav navbar-right">
-      <li><a href="/user/signup">Sign Up</a></li>
+      <li><a href="/user/signup"><i class="fa fa-user-plus"></i> Sign Up</a></li>
       <li class="nav navbar-text navbar-right">
     </ul>
           <% else %>
+
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="/user/signout">Sign Out <i class="fa fa-sign-out"></i></a></li>
+            <li><a href="/user/signout"> <i class="fa fa-sign-out"></i> Sign Out</a></li>
             <li class="nav navbar-text navbar-right">
           </ul>
+          <ul class="nav navbar-nav navbar-right">
+      <li><p class="navbar-text">Signed as <a href="/user/view/<%=session['id']%>"> <%= User.first(:id => session['id']).username %></a></p></li>
+      <li class="nav navbar-text navbar-right">
+    </ul>
           <% end %>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

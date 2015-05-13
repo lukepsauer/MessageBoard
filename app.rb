@@ -3,6 +3,7 @@ Bundler.require
 enable :sessions
 DB = Sequel.connect(ENV['DATABASE_URL'] || 'sqlite://db/main.db')
 require './models.rb'
+session['id'] = nil
 def login?
   if session['id'] == nil
     redirect '/user/login'
@@ -62,11 +63,13 @@ post '/user/authenticate' do
 end
 
 get '/welcome/:name' do
+  login?
   @name = params[:name]
   erb :welcome
 end
 
 get '/user/signout' do
+  login?
   session['id'] = nil
   redirect '/user/login'
 end
@@ -99,6 +102,7 @@ get '/post/view/:id' do
 end
 
 get '/disc/like/:id' do
+  login?
   d = Disc.first(:id => params[:id].to_i)
   new  = d.voted.split(', ')
   if new.include?(session["id"].to_s) == true
@@ -116,6 +120,7 @@ get '/disc/like/:id' do
   end
 end
 get '/post/like/:id/:user' do
+  login?
   d = Post.first(:id => params[:id])
   new  = d.voted.split(', ')
   if new.include?(session["id"].to_s) == true
