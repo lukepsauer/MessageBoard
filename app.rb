@@ -22,7 +22,7 @@ post '/post/new' do
   post.title = params[:title]
   post.description = params[:desc]
   post.user_id = session['id']
-  post.date = Date.today
+  post.date = DateTime.now
   post.voted = ", "
   post.likes = 0
   post.save
@@ -37,7 +37,7 @@ post '/user/create' do
     u.save
     u = User.first(:username => params[:username])
     session['id'] = u.id
-    redirect "/welcome/#{u.username}"
+    redirect "/welcome/#{u.username}/2"
   else
     redirect '/user/signup'
   end
@@ -53,17 +53,20 @@ end
 
 post '/user/authenticate' do
   u = User.first(:username => params[:username])
-  if BCrypt::Password.new(u.password.to_s) == params[:password]
+  if u == nil
+    redirect '/user/login'
+  elsif BCrypt::Password.new(u.password.to_s) == params[:password]
     session['id'] = u.id
-    redirect "/welcome/#{u.username}"
+    redirect "/welcome/#{u.username}/1"
   else
     redirect '/user/login'
   end
 end
 
-get '/welcome/:name' do
+get '/welcome/:name/:test' do
   login?
   @name = params[:name]
+  @test = params[:test]
   erb :welcome
 end
 
@@ -153,7 +156,7 @@ post '/disc/new/:id' do
   disc.message = params[:message]
   disc.author_id = session['id']
   disc.post_id = params[:id]
-  disc.date = Date.today
+  disc.date = DateTime.now
   disc.save
   post = Post.first(:id => params[:id])
   redirect "/post/view/#{post.id}"

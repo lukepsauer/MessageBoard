@@ -31,7 +31,7 @@
           <%= User.first(:id => disc.author_id).username %>
         </th>
         <th>
-          <%= disc.date.strftime('%b %d, %Y')%>
+          <%= disc.date.strftime('%b %d, %Y at %l:%M %p')%>
         </th>
         <th>
           <% if disc.voted.split(', ').include?(session["id"].to_s) == true %>

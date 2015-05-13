@@ -3,7 +3,7 @@
   <title>Message Board</title>
   <!--CSS-->
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
-  <link href="//bootswatch.com/spacelab/bootstrap.min.css" rel="stylesheet">
+  <link href="//bootswatch.com/yeti/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="/css/app.css?<%= rand(100000) %>">
   <link rel="shortcut icon" type="image/icon" href="/icon_chat.png">
@@ -18,7 +18,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <script src="/js/app.js?<%= rand(100000) %>"></script>
-<nav class="navbar  navbar-fixed-top">
+<nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -37,9 +37,9 @@
         <li><a href="/"><i class="fa fa-envelope"></i> Threads</a></li>
         <form class="navbar-form navbar-left" method="post" action="/user/search">
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="User" name="user">
+            <input type="text" class="form-control" placeholder="&#xF007; User" style=" font-family:Arial, FontAwesome" name="user">
           </div>
-          <button type="submit" class="btn btn-primary"><i class="fa fa-lg fa-search"></i></button>
+          <button type="submit" class="btn btn-default" style="height:31px;"><i class="fa fa-lg fa-search"></i></button>
         </form>
       </ul>
       <% if session['id'] == nil %>
@@ -57,7 +57,7 @@
             <li class="nav navbar-text navbar-right">
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><p class="navbar-text">Signed as <a href="/user/view/<%=session['id']%>"> <%= User.first(:id => session['id']).username %></a></p></li>
+            <li><p class="navbar-text">Signed in as <a href="/user/view/<%=session['id']%>" style="color:white;"> <%= User.first(:id => session['id']).username %></a></p></li>
             <li class="nav navbar-text navbar-right">
           </ul>
       <% end %>

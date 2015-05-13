@@ -6,7 +6,7 @@ Sequel.migration do
       String :title
       String :description
       Array :disc
-      Date :date
+      DateTime :date
       String :voted
       Integer :likes
 

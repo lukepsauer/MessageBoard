@@ -1,4 +1,8 @@
 <div class="jumbotron" role="alert">
-  <h1 class="text-center"> Welcome back, <%= @name %>! We missed you!</h1>
-  <a class="btn btn-primary btn-block btn-lg text-center center" role="button" href="/">Proceed to site.</a>
+  <% if @test.to_i == 1 %>
+      <h1 class="text-center"> Welcome back, <%= @name %>! We missed you!</h1>
+  <% else %>
+      <h1 class="text-center"> Welcome, <%= @name %>! Enjoy the site!</h1>
+  <% end %>
+  <a class="btn btn-primary btn-block btn-lg text-center center j" role="button" href="/">Proceed to site.</a>
 </div>

@@ -5,7 +5,7 @@ Sequel.migration do
 
       String :title
       String :message
-      Date :date
+      DateTime :date
       String :voted
       Integer :likes
       foreign_key :author_id

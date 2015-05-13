@@ -24,7 +24,7 @@
           <%= post.title %> <small><em><%= post.description %></em></small>
         </th>
         <th>
-          <%= post.date.strftime('%b %d, %Y')%>
+          <%= post.date.strftime('%b %d, %Y at %l:%M %p')%>
         </th>
         <th>
           <%= Disc.where(:post_id => post.id).count%>
