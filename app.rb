@@ -3,7 +3,7 @@ Bundler.require
 enable :sessions
 DB = Sequel.connect(ENV['DATABASE_URL'] || 'sqlite://db/main.db')
 require './models.rb'
-session['id'] = nil
+
 def login?
   if session['id'] == nil
     redirect '/user/login'
