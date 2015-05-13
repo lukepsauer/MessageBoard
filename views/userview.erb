@@ -1,5 +1,4 @@
 <h1 class="text-center">Threads by <%= @user.username %></h1>
-
 <table class="table table-striped">
   <tr>
     <th class="first-cell">
@@ -12,7 +11,7 @@
       Date &nbsp&nbsp&nbsp
     </th>
     <th>
-        Amount of Messages
+      Amount of Messages
     </th>
     <th>
       Likes
@@ -31,12 +30,11 @@
           <%= Disc.where(:post_id => post.id).count%>
         </th>
         <th>
-
           <% if post.voted.split(', ').include?(session["id"].to_s) == true %>
               <a class="black-icon" href="/post/like/<%= post.id %>/1"><i class="fa fa-thumbs-up"></i></a>
-          <%else%>
+          <% else %>
               <a class="black-icon" href="/post/like/<%= post.id %>/1"><i class="fa fa-thumbs-o-up"></i></a>
-          <%end%>
+          <% end %>
           <span class="badge"><%= post.likes %></span>
         </th>
       </tr>

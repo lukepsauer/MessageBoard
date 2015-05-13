@@ -25,7 +25,7 @@
           <%= disc.title %>
         </th>
         <th>
-           <%= disc.message %>
+          <%= disc.message %>
         </th>
         <th>
           <%= User.first(:id => disc.author_id).username %>
@@ -34,7 +34,6 @@
           <%= disc.date.strftime('%b %d, %Y')%>
         </th>
         <th>
-
           <% if disc.voted.split(', ').include?(session["id"].to_s) == true %>
               <a class="black-icon" href="/disc/like/<%= disc.id %>"><i class="fa fa-thumbs-up"></i></a>
           <%else%>
@@ -56,7 +55,6 @@
       <textarea type="text" class="form-control " name="message" placeholder="Message..." rows="5"></textarea>
     </div>
   </div>
-
   <div class="form-group">
     <div class="text-center">
       <button class="btn btn-primary btn-block text-center" type="submit">Submit New Message <i class="fa fa-lg fa-pencil-square-o"></i></button>

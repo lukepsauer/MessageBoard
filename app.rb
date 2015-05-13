@@ -9,6 +9,7 @@ def login?
     redirect '/user/login'
   end
 end
+
 # READ
 get '/' do
   login?
@@ -28,16 +29,15 @@ post '/post/new' do
   redirect '/'
 end
 
-# CREATE
 post '/user/create' do
   if params[:password].to_s == params[:passwordcheck].to_s && User.where(:username => params[:username]).count == 0
-  u = User.new
-  u.username = params[:username]
-  u.password = BCrypt::Password.create(params[:password].to_s)
-  u.save
-  u = User.first(:username => params[:username])
-  session['id'] = u.id
-  redirect "/welcome/#{u.username}"
+    u = User.new
+    u.username = params[:username]
+    u.password = BCrypt::Password.create(params[:password].to_s)
+    u.save
+    u = User.first(:username => params[:username])
+    session['id'] = u.id
+    redirect "/welcome/#{u.username}"
   else
     redirect '/user/signup'
   end
@@ -51,12 +51,11 @@ get '/user/signup' do
   erb :signup
 end
 
-# UPDATE
 post '/user/authenticate' do
   u = User.first(:username => params[:username])
   if BCrypt::Password.new(u.password.to_s) == params[:password]
-      session['id'] = u.id
-      redirect "/welcome/#{u.username}"
+    session['id'] = u.id
+    redirect "/welcome/#{u.username}"
   else
     redirect '/user/login'
   end
@@ -129,10 +128,10 @@ get '/post/like/:id/:user' do
     d.voted = new.join(", ")
     d.save
     if params[:user].to_i == 2
-    redirect "/"
+      redirect "/"
     else
       redirect "/user/view/#{d.user_id}"
-      end
+    end
   else
     d.likes += 1
     new.push(session["id"])
@@ -145,7 +144,6 @@ get '/post/like/:id/:user' do
     end
   end
 end
-
 
 post '/disc/new/:id' do
   disc = Disc.new
@@ -179,8 +177,8 @@ end
 post '/user/search' do
   login?
   if User.first(:username => params[:user]) != nil
-  redirect "/user/view/#{User.first(:username => params[:user]).id}"
+    redirect "/user/view/#{User.first(:username => params[:user]).id}"
   else
     redirect "/users"
-    end
+  end
 end
